@@ -3,7 +3,7 @@
 <?php
 $conexion = mysqli_connect("localhost", "remoto", "x1234567", "tiendaonline");
 mysqli_set_charset($conexion,"utf8");
-$peticion = "select * from productos";
+$peticion = "select * from productos where id=".$_GET["id"]." LIMIT 1";
 $resultado = mysqli_query($conexion, $peticion);
 
 while($fila=mysqli_fetch_array($resultado)){
@@ -12,7 +12,7 @@ while($fila=mysqli_fetch_array($resultado)){
 	echo "<p>".$fila["descripcion"]."<p>";
 	echo "<p> Precio: $ ".$fila["precio"]."<p>";
 
-	$peticion2 = "select * from imagenesproductos where idproducto=".$fila["id"]." LIMIT 1";
+	$peticion2 = "select * from imagenesproductos where idproducto=".$fila["id"]."";
 	$resultado2 = mysqli_query($conexion, $peticion2);
 	while($fila2=mysqli_fetch_array($resultado2)){
 		echo "<img src='./fotos/".$fila2["imagen"]."' width='100px' />";
