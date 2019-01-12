@@ -1,7 +1,8 @@
-<?php include("./php/cabecera.inc") ?>
+<?php include("./php/cabecera.inc"); ?>
+<?php include("./php/config.inc"); ?>
 
 <?php
-$conexion = mysqli_connect("localhost", "remoto", "x1234567", "tiendaonline");
+$conexion = mysqli_connect($servidor, $usuario, $contrasena, $basedatos);
 mysqli_set_charset($conexion,"utf8");
 $peticion = "select * from productos where id=".$_GET["id"]." LIMIT 1";
 $resultado = mysqli_query($conexion, $peticion);

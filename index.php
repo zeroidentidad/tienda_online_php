@@ -1,22 +1,22 @@
-<?php include("./php/cabecera.inc") ?>
+<?php include("./php/cabecera.inc"); ?>
+<?php include("./php/config.inc"); ?>
 
 <?php
-$conexion = mysqli_connect("localhost", "remoto", "x1234567", "tiendaonline");
+$conexion = mysqli_connect($servidor, $usuario, $contrasena, $basedatos);
 mysqli_set_charset($conexion,"utf8");
-$peticion = "select * from productos";
+$peticion = "select * from productos where existencias > 0";
 $resultado = mysqli_query($conexion, $peticion);
 
 while($fila=mysqli_fetch_array($resultado)){
 	echo "<article>";
-	echo "<a href='producto.php?id=".$fila["id"]."'><h3>".$fila["nombre_producto"]."</h3></a>";
-	echo "<p>".$fila["descripcion"]."<p>";
-	echo "<p> Precio: $ ".$fila["precio"]."<p>";
-
 	$peticion2 = "select * from imagenesproductos where idproducto=".$fila["id"]." LIMIT 1";
 	$resultado2 = mysqli_query($conexion, $peticion2);
 	while($fila2=mysqli_fetch_array($resultado2)){
 		echo "<img src='./fotos/".$fila2["imagen"]."' width='100px' />";
-	}
+	}	
+	echo "<a href='producto.php?id=".$fila["id"]."'><h3>".$fila["nombre_producto"]."</h3></a>";
+	echo "<p>".$fila["descripcion"]."<p>";
+	echo "<p> Precio: $ ".$fila["precio"]."<p>";
 	print '<br>';
 	echo "<a href='producto.php?id=".$fila["id"]."'><button>Más información</button></a>";
 	echo "<button class='botoncompra' value=".$fila["id"].">Comprar ahora</button>";
